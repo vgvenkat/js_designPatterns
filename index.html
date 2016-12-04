@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <img src="http://lorempixel.com/640/280/cats/" alt="cat" class="catImage" onclick="updateCounter()"/>
+  <p>Cat Clicked:<span class="counter"></span></p>
+  <script>
+
+      var clicked = -1;
+      function updateCounter(){
+
+          clicked ++;
+          document.querySelector(".counter").innerText = clicked;
+
+      }
+      updateCounter();
+
+  </script>
+</body>
+</html>
