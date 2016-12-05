@@ -7,18 +7,36 @@
   <title>Document</title>
 </head>
 <body>
-  <img src="http://lorempixel.com/640/280/cats/" alt="cat" class="catImage" onclick="updateCounter()"/>
-  <p>Cat Clicked:<span class="counter"></span></p>
+  <img src="http://lorempixel.com/640/280/cats/" alt="cat1" class="catImage" id="cat1"/>
+  <p>Cat1 Clicked:<span class="counter" id="cat1_counter">0</span></p>
+  <img src="http://lorempixel.com/640/280/cats/" alt="cat2" class="catImage" id="cat2"/>
+  <p>Cat2 Clicked:<span class="counter" id="cat2_counter">0</span></p>
+
   <script>
+      var catList = [{
+        "name" : "cat1",
+        "clicked": 0
+      },{
+        "name" : "cat2",
+        "clicked": 0
+      }]
+      var catId = "",
+      clicked = 0,
+      selectedCat = "";
 
-      var clicked = -1;
-      function updateCounter(){
+      function findCatByName(catObj) {
 
-          clicked ++;
-          document.querySelector(".counter").innerText = clicked;
-
+        return catObj.name === catId;
       }
-      updateCounter();
+      document.body.addEventListener("click", ".catImage", function(e){
+        catId = this.id;
+        selectedCat = catList.find(findCatByName);
+        clicked = ++ selectedCat.clicked;
+        console.log(catId, selectedCat, clicked);
+        document.querySelector("#"+catId+"_counter").innerText = clicked;
+
+      });
+
 
   </script>
 </body>
