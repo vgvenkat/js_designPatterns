@@ -53,6 +53,7 @@
 
       //display the 5 cats
       var $catList = document.querySelector(".catList");
+      var $catSelect = document.querySelector(".catSelect");
       for (var i=0; i<catList.length;i++) {
         var cat = catList[i];
         var $img = document.createElement("img");
@@ -67,6 +68,18 @@
         $img.addEventListener("click", (function(catCopy){
           return function(){
             ++ catCopy.clicked;
+            $catSelect.innerHTML = '';
+            var $catImg = document.createElement("img");
+            var $clickCounter = document.createElement("p");
+            setAttributes($catImg, {
+              "src": catCopy.url,
+              "alt":catCopy.name,
+              "id" :catCopy.name,
+              "class":"catImage"
+            })
+            $catSelect.append($catImg);
+            $clickCounter.innerText = catCopy.name +" was clicked "+ catCopy.clicked;
+            $catSelect.append($clickCounter);
             console.log(catCopy.name + " was clicked " + catCopy.clicked);
           }
         })(cat))
