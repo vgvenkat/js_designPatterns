@@ -7,35 +7,83 @@
   <title>Document</title>
 </head>
 <body>
-  <img src="http://lorempixel.com/640/280/cats/" alt="cat1" class="catImage" id="cat1"/>
+  <div class="catSelect">
+    <h2 style="color:gray">Select a cat to display it here</h2>
+  </div>
+  <hr />
+  <div class="catList">
+
+  </div>
+  <!-- <img src="http://lorempixel.com/640/280/cats/" alt="cat1" class="catImage" id="cat1"/>
   <p>Cat1 Clicked:<span class="counter" id="cat1_counter">0</span></p>
   <img src="http://lorempixel.com/640/280/cats/" alt="cat2" class="catImage" id="cat2"/>
-  <p>Cat2 Clicked:<span class="counter" id="cat2_counter">0</span></p>
+  <p>Cat2 Clicked:<span class="counter" id="cat2_counter">0</span></p> -->
 
   <script>
       var catList = [{
         "name" : "cat1",
+        "url":"http://lorempixel.com/340/180/cats/1/",
         "clicked": 0
       },{
         "name" : "cat2",
+        "url":"http://lorempixel.com/340/180/cats/2/",
+        "clicked": 0
+      },{
+        "name" : "cat3",
+        "url":"http://lorempixel.com/340/180/cats/3/",
+        "clicked": 0
+      },{
+        "name" : "cat4",
+        "url":"http://lorempixel.com/340/180/cats/4/",
+        "clicked": 0
+      },{
+        "name" : "cat5",
+        "url":"http://lorempixel.com/340/180/cats/5/",
         "clicked": 0
       }]
       var catId = "",
       clicked = 0,
       selectedCat = "";
 
-      function findCatByName(catObj) {
-
-        return catObj.name === catId;
+      function setAttributes(el, attrs) {
+        for(var key in attrs) {
+          el.setAttribute(key, attrs[key]);
+        }
       }
-      document.body.addEventListener("click", ".catImage", function(e){
-        catId = this.id;
-        selectedCat = catList.find(findCatByName);
-        clicked = ++ selectedCat.clicked;
-        console.log(catId, selectedCat, clicked);
-        document.querySelector("#"+catId+"_counter").innerText = clicked;
 
-      });
+      //display the 5 cats
+      var $catList = document.querySelector(".catList");
+      for (var i=0; i<catList.length;i++) {
+        var cat = catList[i];
+        var $img = document.createElement("img");
+
+        setAttributes($img, {
+          "src": cat.url,
+          "alt":"cat"+(i+1),
+          "id" :"cat"+(i+1),
+          "class":"catImage"
+        })
+
+        $img.addEventListener("click", (function(catCopy){
+          return function(){
+            ++ catCopy.clicked;
+            console.log(catCopy.name + " was clicked " + catCopy.clicked);
+          }
+        })(cat))
+        $catList.append($img);
+      }
+      // function findCatByName(catObj) {
+      //
+      //   return catObj.name === catId;
+      // }
+      // document.body.addEventListener("click", ".catImage", function(e){
+      //   catId = this.id;
+      //   selectedCat = catList.find(findCatByName);
+      //   clicked = ++ selectedCat.clicked;
+      //   console.log(catId, selectedCat, clicked);
+      //   document.querySelector("#"+catId+"_counter").innerText = clicked;
+      //
+      // });
 
 
   </script>
